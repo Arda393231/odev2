@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dijitalleşme ve Tarih Araştırmaları</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script defer="" src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<script>
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#3B82F6", // Medium, friendly blue
+                    "secondary": "#6366F1", // Indigo for the score
+                    "background-light": "#F9FAFB",
+                    "background-dark": "#101622",
+                    "text-light": "#1F2937",
+                    "text-dark": "#F9FAFB",
+                },
+                fontFamily: {
+                    "display": ["Inter", "sans-serif"]
+                },
+                borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+            },
+        },
+    }
+</script>
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    input[type='range'] {
+        -webkit-appearance: none;
+        appearance: none;
+        background: transparent;
+        cursor: pointer;
+        --value: 50%;
+    }
+    
+    input[type='range']::-webkit-slider-runnable-track {
+        background: linear-gradient(to right, 
+                    var(--secondary, #6366F1) var(--value, 0%), 
+                    #D1D5DB var(--value, 0%)); 
+        height: 0.65rem;
+        border-radius: 9999px;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        transition: background-color 0.3s;
+    }
+    
+    input[type='range']::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        margin-top: -6.5px; 
+        background-color: #fff;
+        height: 1.5rem;
+        width: 1.5rem;
+        border-radius: 9999px;
+        border: 4px solid var(--secondary, #6366F1);
+        box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+        transition: all 0.15s ease-in-out;
+    }
+
+    @keyframes burst-out-1 {
+        0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        100% { transform: translate(-50%, -150%) scale(2.5); opacity: 0; }
+    }
+    @keyframes burst-out-2 {
+        0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        100% { transform: translate(-150%, -50%) scale(2); opacity: 0; }
+    }
+    @keyframes burst-out-3 {
+        0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        100% { transform: translate(50%, -100%) scale(3); opacity: 0; }
+    }
+
+    .animate-burst-1 { animation: burst-out-1 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s forwards; }
+    .animate-burst-2 { animation: burst-out-2 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s forwards; }
+    .animate-burst-3 { animation: burst-out-3 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards; }
+    
+    .chat-box::-webkit-scrollbar {
+        display: none;
+    }
+    .chat-box {
+        -ms-overflow-style: none; 
+        scrollbar-width: none; 
+    }
+
+    
+    
+    
+
+</style>
+</head>
+<body class="font-display bg-background-light c:\Users\PC\AppData\Local\Packages\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\TempState\2415EAB31FDBBDB7AD80F314D33BA11D\WhatsApp Görsel 2025-11-26 saat 20.01.35_9ee414a7.jpgdark:bg-background-dark text-text-light dark:text-text-dark">
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4" id="desktop-modal">
+<div class="bg-background-light dark:bg-background-dark rounded-xl shadow-2xl w-full max-w-md mx-auto p-6 md:p-8 border border-gray-200 dark:border-gray-700">
+<h2 class="text-xl md:text-2xl font-bold mb-4 text-text-light dark:text-text-dark">En İyi Deneyim İçin Lütfen Bilgisayar Kullanın</h2>
+<p class="text-gray-600 dark:text-gray-300 mb-6">Bu çalışma en iyi görüntüleme ve etkileşim deneyimi için masaüstü/dizüstü bilgisayar ekranları (PC) düşünülerek tasarlanmıştır. Mobil cihazlardan da giriş yapabilirsiniz, ancak bazı öğeler beklediğiniz gibi görünmeyebilir.</p>
+<button class="w-full bg-primary text-white font-bold py-3 px-4 rounded-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors" onclick="document.getElementById('desktop-modal').style.display='none'">
+                Anladım / Devam Et
+            </button>
+</div>
+</div>
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<header class="sticky top-0 z-40 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center gap-4">
+<div class="text-primary size-6">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-text-light dark:text-text-dark text-lg font-bold tracking-tight">Dijitalleşme ve &amp;  Tarih Araştırmaları</h2>
+</div>
+<nav class="flex items-center gap-6 sm:gap-8">
+<a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="#history-research">Tarih ve Dijitalleşme </a>
+<a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="#ethical-guidelines">Etik Rehber İlkeler</a>
+<a class="text-sm font-bold bg-gradient-to-r from-blue-400 to-indigo-500 text-white px-3 py-1.5 rounded-full" href="#ai-chat">AI</a>
+</nav>
+</div>
+</div>
+</header>
+<main class="flex-1">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+<section class="text-center mb-12" id="history-research">
+<p class="text-4xl sm:text-5xl md:text-6xl font-black leading-tight tracking-tighter text-text-light dark:text-text-dark">Tarihin Dijital Dönüşümü: Araştırma ve Yazımda Yeni Bir Çağ</p>
+</section>
+<p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-8">
+Tarih, toplumları, milletleri, kuruluşları etkileyen hareketlerden doğan olayları zaman ve yer göstererek anlatan; bu olaylar arasındaki ilişkileri, daha önceki ve sonraki olaylarla bağlantılarını, karşılıklı etkilenmeleri ve her milletin kurduğu medeniyeti inceleyen bilim dalıdır. Tarihçilik, çağlar boyunca kullanılan yöntemlerle evrildi; bir nevi mutasyona uğradı. Özellikle bu evrilme, matbaanın devriminden sonra oldu. Matbaadan sonra en büyük devrim ise dijitalleşmede gerçekleşti. Bu teknolojik gelişim, tarih araştırma ve yazım süreçlerine hem olumlu hem de olumsuz etkiler bırakmıştır. Biz de bu blogda araştırmaları ve yazım süreçleri üzerindeki olumlu ve olumsuz etkilerini bilimsel bir bakış açısıyla ele alacağız.<section class="mb-12">
+<h2 class="text-3xl font-bold leading-tight tracking-tight text-text-light dark:text-text-dark mb-6">Dijitalleşmenin tarih araştırma ve yazım süreçlerine olumlu etkileri</h2>
+
+<p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+Dijital platformlar, tarihçilere daha önce hayal edilemeyecek imkânlar sunmuştur. Bu imkânlar sayesinde araştırma ufuklarını geliştirmişlerdir; ayrıca dünyadaki birçok arşive erişim imkânı bulmuşlardır. Dijital kütüphaneler, veri tabanları ve çevrimiçi arşivler, tarihçilere geniş birincil ve ikincil kaynaklara erişim imkânı sağlamıştır. Tabii ki de bunlarla sınırlı kalmamıştır. Aşağıda verilen listede dijitalleşmenin bazı örneklerini bulabilirsiniz:
+<ol class="list-disc list-inside mt-4 space-y-2">
+1- Küresel Arşiv Erişimi ve Kaynak Zenginliği: Dijitalleştirilmiş arşivler ve veri tabanları sayesinde dünyanın dört bir yanındaki birincil ve ikincil kaynaklara anında erişim mümkün kılınmıştır. Bu durum, araştırmacıların coğrafi engelleri ortadan kaldırarak daha kapsamlı ve çeşitli kaynaklarla çalışmasına imkân sağlamıştır.
+</ol>
+<ol class="list-disc list-inside mt-4 space-y-2">
+2- Yeni Araştırma Alanları ve Metotlar: Dijital bilimler adı altında, sanal gerçeklik ile mekânsal tarih çalışmaları veya yapay zeka destekli araştırmalar gibi yeni metotlar geliştirilmektedir. Bu durum, tarihçilere yeni perspektifler ve analiz yöntemleri sunmuştur.
+</ol>
+<ol class="list-disc list-inside mt-4 space-y-2">
+3- Veri Analizi ve Görselleştirme: Veri analizleri ve görselleştirme metotları, tıpkı madencilerin değerli taşlar bulması gibi, milyonlarca ferman ve gazetenin yapay zeka ile analiz edilmesini mümkün kılmaktadır. Bu sayede, milyonlarca ferman ve gazetede en çok kullanılan kelimeler veya konular rahatlıkla analiz edilebilmektedir. Ayrıca, göç yolları veya olaylarla ilişkili haritalar oluşturarak görselleştirmeler yapabilmek de mümkün olmaktadır.</ol>
+<ol class="list-disc list-inside mt-4 space-y-2">
+
+</ol>
+<div class="w-full aspect-[16/9] mb-9 mt-9">
+    <img src="img1.jpg" 
+         alt="Dijital tarih araştırması"
+         class="w-full h-full object-cover rounded-xl shadow-lg">
+</div>
+
+<section class="mb-12">
+<h2 class="text-3xl font-bold leading-tight tracking-tight text-text-light dark:text-text-dark mb-6">Dijitalleşmenin tarih araştırma ve yazım süreçlerine olumsuz etkileri</h2>
+<p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-8">
+Dijitalleşmenin getirdiği avantajların yanı sıra bazı olumsuz etkiler de bulunmaktadır. Maalesef, bu durumda tarihçilerin dikkat etmesi gereken riskler vardır. Aşağıda bu risklerden bazılarını bulabilirsiniz:
+<ol class="list-disc list-inside mt-4 space-y-2">
+1- Kaynak Değerlendirmesi ve Güvenilirlik Sorunu: İnternet üzerindeki bilgi bolluğu avantajlı bir durum olsa da, bazen olumsuz sonuçlar doğurabilmektedir. Örnek vermek gerekirse, resmi arşivlerin dijitalleştirilmiş kopyalarının yanında doğruluğu teyit edilmemiş veya manipüle edilmiş kaynakların hızla yayılması, araştırmacıları yanlış yola sürükleyebilmektedir. Bu durum, araştırmacıların yaptığı çalışmalar için bir risk oluşturmaktadır.
+</ol>
+<ol class="list-disc list-inside mt-4 space-y-2">
+2- Dijital Koruma ve Süreklilik Sorunları: Dijital veriler, fiziksel verilere göre daha zor korunabilir. Donanım ve yazılım güncellemeleri, siber saldırılar ve format değişiklikleri, dijital kaynakların kalıcı olarak korunmasını zorlaştırmaktadır.</ol>
+<ol class="list-disc list-inside mt-4 space-y-2">
+3- Telif Hakkı ve Lisanslama Zorlukları: Tarihsel kaynakların dijitalleştirilmesi, özellikle güncel arşivler ve telif hakkı süresi dolmamış kaynaklar söz konusu olduğunda telif hakkı sorunlarını ortaya çıkarmaktadır. Maalesef, birçok dijital veri erişimi ücretli aboneliklerle kısıtlanmaktadır. Bu ekonomik engeller, kaynaklara erişimi sınırlamaktadır.</ol>
+                    </p>
+<div class="w-full aspect-[16/9] mb-9 mt-9">
+    <img src="img2.jpg" 
+         alt="Dijital tarih araştırması"
+         class="w-full h-full object-cover rounded-xl shadow-lg">
+</div>
+
+</section>
+<section class="mb-16" id="ethical-guidelines">
+<section class="mb-16">
+<h2 class="text-3xl font-bold leading-tight tracking-tight text-text-light dark:text-text-dark mb-6">⚖️ Etik Rehber İlkeler ve Kaynakça</h2>
+<p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-8">
+ChatGPT:
+
+Dijital çağda tarih yazımı, bilimsel dürüstlük ve etik kurallara bağlı kalmayı zorunlu kılar. Araştırmamızda kullanılan tüm fikir ve veriler, bilimsel etik kurallarına uygun olarak, aşağıda belirtilen güncel ve güvenilir internet siteleri ile akademik kaynaklara dayandırılmıştır.</p>
+
+<h3 class="text-2xl font-bold leading-tight tracking-tight text-text-light dark:text-text-dark mb-4">📚 Seçilmiş Kaynakça ve Referanslar</h3>
+<p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+Bu blog yazısında kullanılan bilgiler ve analizler, aşağıdaki kaynaklardan yararlanılarak oluşturulmuştur:
+</p>
+
+<ol class="list-decimal list-inside mt-4 space-y-4 text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+    <li>
+        Türk Dil Kurumu (TDK). Güncel Sözlük.<br>
+        Kaynak Adresi: https://sozluk.gov.tr/
+    </li>
+    <li>
+        Tarih34. Dijitalleşmenin Tarih Araştırma ve Yazımına Etkisi. <br>
+        Kaynak Adresi: https://tarih34.com/dijitallesmenin-tarih-arastirma-ve-yazimina-etkisi_h2782.html
+    </li>
+    <li>
+        Evrim Ağacı. Blog: Dijitalleşmenin Tarih Araştırma ve Yazımına Olumlu ve Olumsuz Yönleri. <br>
+        Kaynak Adresi: https://evrimagaci.org/blog/dijitallesmenin-tarih-arastirma-ve-yazimina-olumlu-ve-olumsuz-yonleri-19087
+    </li>
+    <li>
+        Dergipark. Dijital Tarih Yazımı ve Yeni Medya başlıklı akademik makale veya ilgili yayın. <br>
+        Kaynak Adresi: https://dergipark.org.tr/tr/download/article-file/1161401
+    </li>
+    <li>
+        Prezi. Dijitalleşmenin Tarih Araştırma ve Yazımındaki Olumlu ve Olumsuz Etkileri sunumu. <br>
+        Kaynak Adresi: https://prezi.com/p/vvhirhrbompp/dijitallesmenin-tarih-arastrma-ve-yazmndaki-olumlu-ve-olumsuz-etkileri/
+    </li>
+</ol>
+</section>
+
+
+<section class="bg-white dark:bg-gray-800/50 rounded-xl shadow-lg p-6 sm:p-8 border border-gray-200 dark:border-gray-700" id="ai-chat" x-data="chatInterface()">
+    <h3 class="text-2xl font-bold mb-6 text-center text-secondary dark:text-primary">🏛️ Pertevniyal Tarih Yapay Zekası</h3>
+    
+
+    <div x-ref="chatBox" class="chat-box bg-background-light dark:bg-background-dark h-96 rounded-lg p-4 flex flex-col space-y-4 overflow-y-auto mb-6 border border-gray-300 dark:border-gray-600">
+        
+
+        <div class="flex">
+            <div class="bg-gray-200 dark:bg-gray-700 text-text-light dark:text-text-dark p-3 rounded-xl rounded-tl-none max-w-[80%] text-sm shadow-md">
+                <p class="font-semibold text-secondary">Pertevniyal Tarih Yapay Zekası:</p>
+                <p>Hoş geldiniz. Tarih araştırmaları ve akademik yazım süreçleri hakkında size nasıl yardımcı olabilirim? Lütfen sorunuzu sorunuz.</p>
+            </div>
+        </div>
+
+
+<template x-for="message in chatHistory" :key="message.id">
+    <div>
+
+        <template x-if="message.role === 'user'">
+            <div class="flex justify-end">
+                <div class="bg-primary/90 text-white p-3 rounded-xl rounded-br-none max-w-[80%] text-sm shadow-md">
+                    <p x-text="message.textContent"></p> 
+                </div>
+            </div>
+        </template>
+        
+
+        <template x-if="message.role === 'ai'">
+            <div class="flex">
+                <div class="bg-gray-200 dark:bg-gray-700 text-text-light dark:text-text-dark p-3 rounded-xl rounded-tl-none max-w-[80%] text-sm shadow-md">
+                    <p class="font-semibold text-secondary mb-2">Pertevniyal Tarih Yapay Zekası:</p>
+                    <div class="ai-response-text" x-html="message.textContent"></div>
+                    <template x-if="message.sources && message.sources.length > 0">
+                        <div class="mt-2 pt-2 border-t border-gray-300 dark:border-gray-600">
+                            <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Kaynaklar:</p>
+                            <ul class="list-none space-y-1 text-xs">
+                                <template x-for="source in message.sources.slice(0, 3)" :key="source.uri">
+                                    <li>
+                                        <a :href="source.uri" target="_blank" class="text-primary hover:underline truncate block max-w-full">
+                                            <span x-text="source.title"></span>
+                                        </a>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>
+        
+
+        <div x-show="isLoading" class="flex">
+            <div class="bg-gray-200 dark:bg-gray-700 p-3 rounded-xl rounded-tl-none max-w-[80%] text-sm shadow-md">
+                <p class="font-semibold text-secondary">Pertevniyal Tarih Yapay Zekası:</p>
+                <div class="flex space-x-1">
+                    <div class="h-2 w-2 bg-primary rounded-full animate-bounce delay-75"></div>
+                    <div class="h-2 w-2 bg-primary rounded-full animate-bounce delay-150"></div>
+                    <div class="h-2 w-2 bg-primary rounded-full animate-bounce delay-300"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="flex items-center space-x-4">
+        <input 
+            class="flex-1 bg-white dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-text-light dark:text-text-dark disabled:opacity-50" 
+            placeholder="Sorunuzu buraya yazın..." 
+            type="text"
+            x-model="userInput"
+            @keyup.enter="sendMessage"
+            :disabled="isLoading"
+        />
+        <button 
+            @click="sendMessage"
+            :disabled="isLoading || userInput.trim() === ''"
+            class="bg-primary text-white font-bold py-3 px-6 rounded-lg hover:bg-primary/90 transition-colors disabled:bg-gray-400"
+        >
+            Gönder
+        </button>
+    </div>
+</section>
+
+
+<section class="mt-12" id="self-assessment-section" x-data="{ score: 50, confirmed: false, explode: false, result: '' }">
+<h3 class="text-2xl font-bold mb-4 text-center text-text-light dark:text-text-dark">Öğrenci Öz Değerlendirme Puanı (0-100)</h3>
+<div class="bg-white dark:bg-gray-800/50 rounded-xl shadow-2xl p-4 sm:p-6 border border-gray-200 dark:border-gray-700 w-full max-w-2xl mx-auto">
+<div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+    <div class="flex-1 w-full sm:w-auto">
+        <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-2" for="self-assessment">
+            Puanınızı Ayarlayın: <span class="font-bold text-secondary" x-text="score"></span> / 100
+        </label>
+        <div class="flex items-center bg-gray-100 dark:bg-gray-700 p-3 rounded-full shadow-inner border border-gray-300 dark:border-gray-600">
+            <input 
+                class="w-full h-2.5 bg-transparent mr-4" 
+                id="self-assessment" 
+                max="100" 
+                min="0" 
+                step="1" 
+                type="range" 
+                x-model="score"
+                x-init="updateRangeStyle($el)" 
+                @input="updateRangeStyle($event)" 
+                :style="`--value: ${score}%`"
+            />
+        </div>
+    </div>
+    
+    <!-- Onaylama Butonu ve Patlama Efekti -->
+    <button 
+        @click="confirmed = true; result = score >= 90 ? '💯' : (score >= 70 ? '👍' : '🤔'); explode = true; setTimeout(() => { explode = false }, 600)"
+        class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-full hover:bg-indigo-700 transition-all whitespace-nowrap relative overflow-hidden ring-0 hover:ring-4 ring-indigo-300/50 focus:outline-none focus:ring-4"
+    >
+        Onayla
+        <!-- Emojiler patlama animasyonu için mutlak konumlandırıldı -->
+        <template x-if="explode">
+            <div class="absolute inset-0 pointer-events-none">
+                <span class="absolute top-1/2 left-1/2 text-2xl animate-burst-1" :class="{'text-yellow-300': result === '💯'}" x-text="result"></span>
+                <span class="absolute top-1/2 left-1/2 text-xl animate-burst-2">✨</span>
+                <span class="absolute top-1/2 left-1/2 text-3xl animate-burst-3" :class="{'text-yellow-300': result === '💯'}" x-text="result"></span>
+            </div>
+        </template>
+    </button>
+</div>
+</div>
+
+<div class="text-center mt-6 h-12 flex items-center justify-center transition-opacity duration-500" :class="{'opacity-100': confirmed, 'opacity-0': !confirmed}" x-show="confirmed">
+    <p class="text-xl font-medium text-gray-700 dark:text-gray-300">Değerlendirme Sonucunuz: 
+        <span class="text-5xl ml-2 inline-block transition-transform duration-300" :class="{'animate-pulse': explode}" x-text="result"></span>
+    </p>
+</div>
+</section>
+</div>
+</main>
+<footer class="border-t border-gray-200 dark:border-gray-800 mt-16">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex items-center justify-center">
+<p class="text-sm text-gray-500 dark:text-gray-400">© 2025 Dijitalleşme &amp; Tarih Araştırmaları. Bütün Haklar Feyzi Arda Salihoğluna Saklıdır.</p>
+</div>
+</footer>
+</div>
+
+<script>
+    function updateRangeStyle(element) {
+        const value = element.value;
+        const max = element.max || 100;
+        const percentage = (value / max) * 100;
+        element.style.setProperty('--value', `${percentage}%`);
+    }
+    
+
+    function cleanMarkdown(text) {
+  
+        let cleaned = text.replace(/(\*\*|__|\*|_)/g, '');
+        
+
+        cleaned = cleaned.replace(/^#+\s/gm, '');
+        
+
+        cleaned = cleaned.replace(/^[\*\-\+]\s/gm, '• ');
+
+        cleaned = cleaned.replace(/\n\n+/g, '</p><p class="mt-3">');
+        
+
+        cleaned = cleaned.replace(/\n/g, '<br>');
+        
+
+        cleaned = '<p>' + cleaned + '</p>';
+        
+        return cleaned;
+    }
+
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+    function chatInterface() {
+        return {
+            userInput: '',
+            chatHistory: [],
+            isLoading: false,
+
+            systemPrompt: "Sen, Pertevniyal Tarih Yapay Zekası'sın. Rolün, tarih ve ilgili akademik konularda uzman bir danışman ve tarihçi olarak hareket etmektir. Yanıtlarını güncel ve doğru bilgilerle desteklemek için Google Arama'yı kullanmalısın. Yanıtların akademik, bilgilendirici ve saygılı bir tonda olmalıdır. Yanıtlarda sadece düz metin kullan. Asla Markdown işaretleri (**, #, *, gibi) veya HTML etiketleri kullanma. Paragrafları ayırmak için yalnızca yeni satır karakteri kullan. Asla bir yapay zeka veya büyük dil modeli olduğundan, Google tarafından eğitildiğinden ya da bir 'Gemini' modeli olduğundan bahsetme. Yalnızca 'Pertevniyal Tarih Yapay Zekası' olarak yanıt ver.",
+            
+
+            apiKey: "AIzaSyB8BY-oaRqpaGJrjtmHkBEv7TB4owDE-F8", 
+            apiUrl: `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=`,
+
+            init() {
+
+                this.apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${this.apiKey}`;
+
+                this.$watch('chatHistory', () => {
+                    this.$nextTick(() => {
+                        this.$refs.chatBox.scrollTop = this.$refs.chatBox.scrollHeight;
+                    });
+                });
+            },
+
+
+            async exponentialBackoffFetch(url, options, maxRetries = 5) {
+                for (let i = 0; i < maxRetries; i++) {
+                    try {
+                        const response = await fetch(url, options);
+                        if (response.status !== 429 && response.status < 500) {
+                            return response;
+                        }
+
+                    } catch (error) {
+
+                    }
+                    if (i < maxRetries - 1) {
+                        const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                    }
+                }
+                throw new Error("API isteği maksimum deneme sayısından sonra başarısız oldu.");
+            },
+            
+            async sendMessage() {
+                const userQuery = this.userInput.trim();
+                if (userQuery === '' || this.isLoading) return;
+
+                this.chatHistory.push({ 
+                    id: Date.now(), 
+                    role: 'user', 
+                    textContent: userQuery,
+                    sources: [] 
+                });
+                
+                const currentQuery = userQuery; 
+                this.userInput = ''; 
+                this.isLoading = true;
+
+                try {
+                    const payload = {
+                        contents: [{ parts: [{ text: currentQuery }] }],
+                        tools: [{ "google_search": {} }], 
+                        systemInstruction: {
+                            parts: [{ text: this.systemPrompt }] 
+                        },
+                    };
+
+                    const response = await this.exponentialBackoffFetch(this.apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    const result = await response.json();
+                    
+                    const candidate = result.candidates?.[0];
+                    let aiText = "Üzgünüm, şu anda yanıt oluşturulamıyor. Lütfen daha sonra tekrar deneyin.";
+                    let sources = [];
+
+                    if (candidate && candidate.content?.parts?.[0]?.text) {
+                        aiText = candidate.content.parts[0].text;
+                        
+                        const groundingMetadata = candidate.groundingMetadata;
+                        if (groundingMetadata && groundingMetadata.groundingAttributions) {
+                            sources = groundingMetadata.groundingAttributions
+                                .map(attribution => ({
+                                    uri: attribution.web?.uri,
+                                    title: attribution.web?.title,
+                                }))
+                                .filter(source => source.uri && source.title);
+                        }
+                    }
+
+
+                    const cleanedHtml = cleanMarkdown(aiText);
+
+
+                    this.chatHistory.push({
+                        id: Date.now() + 1,
+                        role: 'ai',
+                        textContent: cleanedHtml, 
+                        sources: sources
+                    });
+
+                } catch (error) {
+                    console.error("API Error:", error);
+                    const errorMessage = "API isteği sırasında bir hata oluştu. Lütfen bağlantınızı kontrol edin veya sorunuzu yeniden düzenleyin.";
+
+                    this.chatHistory.push({ 
+                        id: Date.now() + 1, 
+                        role: 'ai', 
+                        textContent: cleanMarkdown(errorMessage), 
+                        sources: [] 
+                    });
+                } finally {
+                    this.isLoading = false;
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>
